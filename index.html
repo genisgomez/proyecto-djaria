@@ -250,23 +250,21 @@
       width: 1px; height: 1px; opacity: 0; pointer-events: none;
     }
 
-    /* Label debajo de las barras */
+    /* Label debajo de las barras — completamente estático */
     .sc-track-label {
       margin-top: 8px; max-width: 280px;
       display: flex; align-items: center; gap: 10px;
       padding: 8px 14px;
       border: 1px solid var(--red-border);
       border-top: 2px solid var(--red);
-      cursor: pointer; transition: background 0.3s;
+      cursor: pointer;
       background: rgba(255,0,51,0.04);
     }
-    .sc-track-label:hover { background: rgba(255,0,51,0.09); }
     .sc-play-icon {
       width: 26px; height: 26px; border-radius: 50%;
       background: var(--red); display: flex; align-items: center;
-      justify-content: center; flex-shrink: 0; transition: transform 0.2s;
+      justify-content: center; flex-shrink: 0;
     }
-    .sc-track-label:hover .sc-play-icon { transform: scale(1.1); }
     .sc-play-icon svg { margin-left: 2px; }
     .sc-playing .sc-play-icon svg.icon-play  { display: none; }
     .sc-playing .sc-play-icon svg.icon-pause { display: block; }
@@ -286,29 +284,21 @@
     .equalizer {
       display: flex; gap: 4px; align-items: flex-end;
       padding: 12px 16px 10px; cursor: pointer;
-      opacity: 0.55; transition: opacity 0.3s, background 0.3s;
-      background: rgba(255,0,51,0.03);
+      opacity: 0.55;
       border-bottom: 1px solid var(--red-border);
       user-select: none;
     }
-    .equalizer:hover { opacity: 0.9; background: rgba(255,0,51,0.07); }
-    .equalizer.playing {
-      opacity: 1;
-      background: rgba(255,0,51,0.1);
-    }
-    .equalizer.playing .eq-bar {
-      filter: drop-shadow(0 0 3px rgba(255,0,51,0.9));
-      opacity: 1;
-    }
+    .equalizer.playing { opacity: 1; }
     .eq-bar {
       width: 3px; background: var(--red); border-radius: 2px;
       animation: eq-pulse var(--d, 0.6s) ease-in-out infinite alternate;
     }
     .equalizer.playing .eq-bar {
       animation-duration: calc(var(--d, 0.6s) * 0.28);
+      filter: drop-shadow(0 0 3px rgba(255,0,51,0.9));
     }
     @keyframes eq-pulse {
-      from { height: var(--min, 4px); opacity: 0.4; }
+      from { height: var(--min, 4px); opacity: 0.35; }
       to   { height: var(--max, 24px); opacity: 1; }
     }
 
@@ -713,7 +703,7 @@
 
 <!-- ── HERO ── -->
 <section id="inicio">
-  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="aria-hero.jpg">
     <source src="aria-video.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
@@ -1041,6 +1031,16 @@
 
 <script>
   'use strict';
+
+  // Vídeo hero — forzar autoplay en móvil
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    heroVideo.play().catch(() => {
+      const playOnTouch = () => { heroVideo.play(); };
+      document.addEventListener('touchstart', playOnTouch, { once: true });
+      document.addEventListener('click',      playOnTouch, { once: true });
+    });
+  }
 
   // Nav scroll
   const navbar = document.getElementById('navbar');
