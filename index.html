@@ -244,14 +244,47 @@
 
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
 
+    /* ── SC HERO WIDGET ── */
+    .sc-hero-wrap {
+      margin-top: 28px; max-width: 400px;
+      border: 1px solid var(--red-border);
+      border-top: 2px solid var(--red);
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(255,0,51,0.08);
+    }
+    .sc-iframe-wrap { position: relative; overflow: hidden; }
+    .sc-iframe-wrap::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,0.48); pointer-events: none; z-index: 1;
+    }
+    .sc-iframe-wrap iframe {
+      display: block; width: 100%; height: 80px; border: none;
+    }
+
     /* Equalizer */
     .equalizer {
-      position: absolute; bottom: 44px; left: 80px;
-      display: flex; gap: 5px; align-items: flex-end; opacity: 0.5;
+      display: flex; gap: 4px; align-items: flex-end;
+      padding: 12px 16px 10px; cursor: pointer;
+      opacity: 0.55; transition: opacity 0.3s, background 0.3s;
+      background: rgba(255,0,51,0.03);
+      border-bottom: 1px solid var(--red-border);
+      user-select: none;
+    }
+    .equalizer:hover { opacity: 0.9; background: rgba(255,0,51,0.07); }
+    .equalizer.playing {
+      opacity: 1;
+      background: rgba(255,0,51,0.1);
+    }
+    .equalizer.playing .eq-bar {
+      filter: drop-shadow(0 0 3px rgba(255,0,51,0.9));
+      opacity: 1;
     }
     .eq-bar {
       width: 3px; background: var(--red); border-radius: 2px;
       animation: eq-pulse var(--d, 0.6s) ease-in-out infinite alternate;
+    }
+    .equalizer.playing .eq-bar {
+      animation-duration: calc(var(--d, 0.6s) * 0.28);
     }
     @keyframes eq-pulse {
       from { height: var(--min, 4px); opacity: 0.4; }
@@ -590,7 +623,7 @@
           rgba(8,8,8,0.5);
       }
       .hero-left { padding: 100px 32px 80px; max-width: 100%; }
-      .equalizer { left: 32px; bottom: 32px; }
+      .sc-hero-wrap { max-width: 100%; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .about-img-wrap::before, .about-img-wrap::after { display: none; }
       .about-img-wrap img { aspect-ratio: 4/3; }
@@ -610,7 +643,6 @@
       .hero-name { font-size: 72px; }
       .hero-ctas { flex-direction: column; }
       .hero-ctas a { justify-content: center; }
-      .equalizer { left: 20px; }
       .container { padding: 0 20px; }
       .vibes-grid { grid-template-columns: 1fr; }
       .events-grid { grid-template-columns: 1fr 1fr; }
@@ -705,16 +737,29 @@
       </a>
     </div>
 
-    <div class="equalizer">
-      <div class="eq-bar" style="--min:3px;--max:16px;--d:0.55s"></div>
-      <div class="eq-bar" style="--min:7px;--max:30px;--d:0.42s"></div>
-      <div class="eq-bar" style="--min:4px;--max:22px;--d:0.68s"></div>
-      <div class="eq-bar" style="--min:10px;--max:38px;--d:0.5s"></div>
-      <div class="eq-bar" style="--min:5px;--max:26px;--d:0.6s"></div>
-      <div class="eq-bar" style="--min:8px;--max:20px;--d:0.47s"></div>
-      <div class="eq-bar" style="--min:3px;--max:34px;--d:0.58s"></div>
-      <div class="eq-bar" style="--min:6px;--max:18px;--d:0.63s"></div>
-      <div class="eq-bar" style="--min:2px;--max:28px;--d:0.44s"></div>
+    <div class="sc-hero-wrap">
+      <div class="equalizer" id="equalizer" title="Play / Pause">
+        <div class="eq-bar" style="--min:3px;--max:16px;--d:0.55s"></div>
+        <div class="eq-bar" style="--min:7px;--max:30px;--d:0.42s"></div>
+        <div class="eq-bar" style="--min:4px;--max:22px;--d:0.68s"></div>
+        <div class="eq-bar" style="--min:10px;--max:38px;--d:0.5s"></div>
+        <div class="eq-bar" style="--min:5px;--max:26px;--d:0.6s"></div>
+        <div class="eq-bar" style="--min:8px;--max:20px;--d:0.47s"></div>
+        <div class="eq-bar" style="--min:3px;--max:34px;--d:0.58s"></div>
+        <div class="eq-bar" style="--min:6px;--max:18px;--d:0.63s"></div>
+        <div class="eq-bar" style="--min:2px;--max:28px;--d:0.44s"></div>
+        <div class="eq-bar" style="--min:5px;--max:24px;--d:0.52s"></div>
+        <div class="eq-bar" style="--min:9px;--max:36px;--d:0.61s"></div>
+        <div class="eq-bar" style="--min:2px;--max:20px;--d:0.46s"></div>
+        <div class="eq-bar" style="--min:6px;--max:28px;--d:0.57s"></div>
+        <div class="eq-bar" style="--min:4px;--max:14px;--d:0.64s"></div>
+        <div class="eq-bar" style="--min:8px;--max:32px;--d:0.49s"></div>
+      </div>
+      <div class="sc-iframe-wrap">
+        <iframe id="sc-player" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ariadna-chavez-gonzalez/01-05-2026&color=%23FF0033&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&buying=false&liking=false&download=false&sharing=false">
+        </iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -822,11 +867,13 @@
     </div>
     <div class="mixes-wrap">
 
-      <div class="reveal" style="margin-bottom:24px;">
-        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ariadna-chavez-gonzalez/01-05-2026&color=%23FF0033&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
-          style="border-radius:4px;">
-        </iframe>
+      <div class="reveal" style="margin-bottom:24px; text-align:center;">
+        <a href="https://soundcloud.com/ariadna-chavez-gonzalez/01-05-2026" target="_blank" rel="noopener" class="btn-red">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M1.175 12.225c-.016.132 0 .264.044.44l1.34 5.544-1.34 5.104a.735.735 0 0 1-.044.26C1.03 23.79 1.21 24 1.44 24c.23 0 .44-.21.44-.44l1.56-5.79-1.56-5.98c0-.23-.21-.44-.44-.44-.23 0-.265.21-.265.875zm2.43-.7c-.022.153 0 .308.043.528l1.165 6.147-1.165 5.632a.66.66 0 0 1-.043.263c-.11.594.11.88.374.88.264 0 .484-.286.484-.88l1.34-5.895-1.34-6.41c0-.594-.22-.88-.484-.88-.264 0-.374.286-.374.615zm2.475-.11c-.044.175-.044.35 0 .57l1.01 6.347-1.01 5.94c-.044.22 0 .396.044.54.088.374.308.572.55.572.242 0 .462-.198.55-.572.044-.144.044-.32 0-.54l1.144-5.94-1.144-6.347c-.088-.374-.308-.572-.55-.572-.242 0-.462.198-.55.572zm12.748 1.034c-.44-2.178-2.354-3.894-4.576-3.894-.924 0-1.782.308-2.486.792V20.5c0 .44.33.88.77.88H20.3c1.738 0 3.17-1.452 3.17-3.19-.022-1.738-1.452-3.19-3.19-3.19a3.2 3.2 0 0 0-.452.044z"/>
+          </svg>
+          Escuchar en SoundCloud
+        </a>
       </div>
 
       <div class="platform-row reveal" style="transition-delay:.15s">
@@ -1001,6 +1048,35 @@
       heroImg.style.transform = `translateY(${window.scrollY * 0.12}px)`;
     }
   }, { passive: true });
+
+  // SoundCloud Widget API — barras reactivas al audio
+  const scScript = document.createElement('script');
+  scScript.src = 'https://w.soundcloud.com/player/api.js';
+  scScript.onload = function() {
+    const iframe    = document.getElementById('sc-player');
+    const eqEl      = document.getElementById('equalizer');
+    const widget    = SC.Widget(iframe);
+    let   isPlaying = false;
+
+    // Click en las barras → play / pause
+    eqEl.addEventListener('click', function() {
+      if (isPlaying) { widget.pause(); } else { widget.play(); }
+    });
+
+    widget.bind(SC.Widget.Events.PLAY, function() {
+      isPlaying = true;
+      eqEl.classList.add('playing');
+    });
+    widget.bind(SC.Widget.Events.PAUSE, function() {
+      isPlaying = false;
+      eqEl.classList.remove('playing');
+    });
+    widget.bind(SC.Widget.Events.FINISH, function() {
+      isPlaying = false;
+      eqEl.classList.remove('playing');
+    });
+  };
+  document.head.appendChild(scScript);
 
   // Active nav link on scroll
   const sections = document.querySelectorAll('section[id]');
