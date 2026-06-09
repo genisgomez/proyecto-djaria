@@ -244,26 +244,42 @@
 
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
 
-    /* ── SC HERO WIDGET ── */
-    .sc-hero-wrap {
-      margin-top: 28px; max-width: 280px;
+    /* SC iframe oculto — solo para Widget API */
+    #sc-player {
+      position: absolute; left: -9999px; top: -9999px;
+      width: 1px; height: 1px; opacity: 0; pointer-events: none;
+    }
+
+    /* Label debajo de las barras */
+    .sc-track-label {
+      margin-top: 8px; max-width: 280px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 14px;
       border: 1px solid var(--red-border);
       border-top: 2px solid var(--red);
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(255,0,51,0.06);
+      cursor: pointer; transition: background 0.3s;
+      background: rgba(255,0,51,0.04);
     }
-    .sc-iframe-wrap {
-      position: relative; overflow: hidden;
-      height: 52px; /* clip to just the controls strip */
+    .sc-track-label:hover { background: rgba(255,0,51,0.09); }
+    .sc-play-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--red); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; transition: transform 0.2s;
     }
-    .sc-iframe-wrap::after {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(0,0,0,0.52); pointer-events: none; z-index: 1;
+    .sc-track-label:hover .sc-play-icon { transform: scale(1.1); }
+    .sc-play-icon svg { margin-left: 2px; }
+    .sc-playing .sc-play-icon svg.icon-play  { display: none; }
+    .sc-playing .sc-play-icon svg.icon-pause { display: block; }
+    .sc-play-icon svg.icon-pause { display: none; }
+    .sc-track-info { min-width: 0; }
+    .sc-track-name {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: white;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .sc-iframe-wrap iframe {
-      display: block; width: 100%; height: 80px; border: none;
-      margin-top: -4px; /* align controls vertically */
-      pointer-events: all;
+    .sc-track-sub {
+      font-size: 10px; color: var(--text-muted);
+      letter-spacing: 1px; margin-top: 2px;
     }
 
     /* Equalizer */
@@ -742,28 +758,37 @@
       </a>
     </div>
 
-    <div class="sc-hero-wrap">
-      <div class="equalizer" id="equalizer" title="Play / Pause">
-        <div class="eq-bar" style="--min:3px;--max:16px;--d:0.55s"></div>
-        <div class="eq-bar" style="--min:7px;--max:30px;--d:0.42s"></div>
-        <div class="eq-bar" style="--min:4px;--max:22px;--d:0.68s"></div>
-        <div class="eq-bar" style="--min:10px;--max:38px;--d:0.5s"></div>
-        <div class="eq-bar" style="--min:5px;--max:26px;--d:0.6s"></div>
-        <div class="eq-bar" style="--min:8px;--max:20px;--d:0.47s"></div>
-        <div class="eq-bar" style="--min:3px;--max:34px;--d:0.58s"></div>
-        <div class="eq-bar" style="--min:6px;--max:18px;--d:0.63s"></div>
-        <div class="eq-bar" style="--min:2px;--max:28px;--d:0.44s"></div>
-        <div class="eq-bar" style="--min:5px;--max:24px;--d:0.52s"></div>
-        <div class="eq-bar" style="--min:9px;--max:36px;--d:0.61s"></div>
-        <div class="eq-bar" style="--min:2px;--max:20px;--d:0.46s"></div>
-        <div class="eq-bar" style="--min:6px;--max:28px;--d:0.57s"></div>
-        <div class="eq-bar" style="--min:4px;--max:14px;--d:0.64s"></div>
-        <div class="eq-bar" style="--min:8px;--max:32px;--d:0.49s"></div>
+    <!-- SC iframe oculto — solo para Widget API -->
+    <iframe id="sc-player" scrolling="no" frameborder="no" allow="autoplay"
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ariadna-chavez-gonzalez/01-05-2026&color=%23FF0033&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&buying=false&liking=false&download=false&sharing=false">
+    </iframe>
+
+    <div class="equalizer" id="equalizer">
+      <div class="eq-bar" style="--min:3px;--max:16px;--d:0.55s"></div>
+      <div class="eq-bar" style="--min:7px;--max:30px;--d:0.42s"></div>
+      <div class="eq-bar" style="--min:4px;--max:22px;--d:0.68s"></div>
+      <div class="eq-bar" style="--min:10px;--max:38px;--d:0.5s"></div>
+      <div class="eq-bar" style="--min:5px;--max:26px;--d:0.6s"></div>
+      <div class="eq-bar" style="--min:8px;--max:20px;--d:0.47s"></div>
+      <div class="eq-bar" style="--min:3px;--max:34px;--d:0.58s"></div>
+      <div class="eq-bar" style="--min:6px;--max:18px;--d:0.63s"></div>
+      <div class="eq-bar" style="--min:2px;--max:28px;--d:0.44s"></div>
+      <div class="eq-bar" style="--min:5px;--max:24px;--d:0.52s"></div>
+      <div class="eq-bar" style="--min:9px;--max:36px;--d:0.61s"></div>
+      <div class="eq-bar" style="--min:2px;--max:20px;--d:0.46s"></div>
+      <div class="eq-bar" style="--min:6px;--max:28px;--d:0.57s"></div>
+      <div class="eq-bar" style="--min:4px;--max:14px;--d:0.64s"></div>
+      <div class="eq-bar" style="--min:8px;--max:32px;--d:0.49s"></div>
+    </div>
+
+    <div class="sc-track-label" id="sc-ctrl">
+      <div class="sc-play-icon">
+        <svg class="icon-play"  width="10" height="12" viewBox="0 0 10 12" fill="white"><polygon points="0,0 10,6 0,12"/></svg>
+        <svg class="icon-pause" width="10" height="12" viewBox="0 0 10 12" fill="white"><rect x="0" y="0" width="3.5" height="12"/><rect x="6.5" y="0" width="3.5" height="12"/></svg>
       </div>
-      <div class="sc-iframe-wrap">
-        <iframe id="sc-player" scrolling="no" frameborder="no" allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ariadna-chavez-gonzalez/01-05-2026&color=%23FF0033&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&buying=false&liking=false&download=false&sharing=false">
-        </iframe>
+      <div class="sc-track-info">
+        <div class="sc-track-name">DJ Aria — Mix</div>
+        <div class="sc-track-sub">Toca para reproducir</div>
       </div>
     </div>
   </div>
@@ -1054,31 +1079,48 @@
     }
   }, { passive: true });
 
-  // SoundCloud Widget API — barras reactivas al audio
+  // SoundCloud Widget API — barras reactivas, iframe oculto
   const scScript = document.createElement('script');
   scScript.src = 'https://w.soundcloud.com/player/api.js';
   scScript.onload = function() {
-    const iframe    = document.getElementById('sc-player');
-    const eqEl      = document.getElementById('equalizer');
-    const widget    = SC.Widget(iframe);
+    const iframe  = document.getElementById('sc-player');
+    const eqEl    = document.getElementById('equalizer');
+    const ctrlEl  = document.getElementById('sc-ctrl');
+    const subText = ctrlEl.querySelector('.sc-track-sub');
+    const widget  = SC.Widget(iframe);
     let   isPlaying = false;
 
-    // Click en las barras → play / pause
-    eqEl.addEventListener('click', function() {
+    function togglePlay() {
       if (isPlaying) { widget.pause(); } else { widget.play(); }
-    });
+    }
+
+    eqEl.addEventListener('click', togglePlay);
+    ctrlEl.addEventListener('click', togglePlay);
 
     widget.bind(SC.Widget.Events.PLAY, function() {
       isPlaying = true;
       eqEl.classList.add('playing');
+      ctrlEl.classList.add('sc-playing');
+      subText.textContent = 'Reproduciendo...';
     });
     widget.bind(SC.Widget.Events.PAUSE, function() {
       isPlaying = false;
       eqEl.classList.remove('playing');
+      ctrlEl.classList.remove('sc-playing');
+      subText.textContent = 'Toca para reproducir';
     });
     widget.bind(SC.Widget.Events.FINISH, function() {
       isPlaying = false;
       eqEl.classList.remove('playing');
+      ctrlEl.classList.remove('sc-playing');
+      subText.textContent = 'Toca para reproducir';
+    });
+    widget.bind(SC.Widget.Events.READY, function() {
+      widget.getCurrentSound(function(sound) {
+        if (sound && sound.title) {
+          ctrlEl.querySelector('.sc-track-name').textContent = sound.title;
+        }
+      });
     });
   };
   document.head.appendChild(scScript);
