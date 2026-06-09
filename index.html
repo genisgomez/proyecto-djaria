@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="DJ ARIA — Barcelona-based DJ specializing in Afrobeat, Dancehall, Reggaeton and Urban Sounds. Available for clubs, festivals, beach clubs and private events.">
+  <title>DJ ARIA — Barcelona</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── RESET & VARIABLES ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:        #FF0033;
+      --red-dark:   #CC0029;
+      --red-glow:   rgba(255, 0, 51, 0.25);
+      --red-border: rgba(255, 0, 51, 0.35);
+      --bg:         #080808;
+      --bg2:        #0f0f0f;
+      --bg3:        #161616;
+      --border:     rgba(255,255,255,0.07);
+      --text:       #ffffff;
+      --text-muted: #888888;
+      --text-dim:   #444444;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── BUTTONS ── */
+    .btn-red {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--red); color: white;
+      padding: 14px 30px; font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: all 0.3s; border: none; cursor: pointer;
+    }
+    .btn-red:hover {
+      background: white; color: var(--red);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px var(--red-glow);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: white;
+      padding: 13px 30px; font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.25);
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: all 0.3s; cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s;
+    }
+    nav.scrolled { background: rgba(8,8,8,0.97); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px; max-width: 1400px; margin: 0 auto;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 4px; color: var(--red);
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-muted);
+      transition: color 0.3s; position: relative; padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px; background: var(--red); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-book {
+      background: var(--red); color: white;
+      padding: 10px 22px; font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: all 0.3s;
+    }
+    .nav-book:hover { background: var(--red-dark); box-shadow: 0 0 20px var(--red-glow); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: white; border-radius: 1px; transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; flex-direction: column;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(8,8,8,0.99);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px; gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 12px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; color: var(--red); }
+    .mobile-menu a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #inicio {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      z-index: 0;
+      filter: brightness(0.55) saturate(1.1) contrast(1.05);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(to right, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.6) 55%, rgba(8,8,8,0.15) 100%),
+        linear-gradient(to top,   rgba(8,8,8,0.85) 0%, transparent 35%),
+        linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, transparent 20%);
+    }
+    .hero-redline {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; z-index: 3;
+      background: var(--red);
+      box-shadow: 0 0 30px var(--red), 0 0 80px var(--red-glow);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 48px 100px 80px;
+      position: relative; z-index: 2;
+      max-width: 680px;
+    }
+
+    .hero-genres {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .hero-genres span {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--red);
+      border: 1px solid var(--red-border);
+      padding: 5px 12px; background: rgba(255,0,51,0.06);
+    }
+    .hero-genres .sep { color: var(--red-border); font-size: 14px; }
+
+    /* GLITCH TITLE */
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 9.5vw, 136px);
+      line-height: 0.88; letter-spacing: 6px;
+      color: white; margin-bottom: 10px;
+      position: relative; display: inline-block;
+    }
+    .hero-name::before, .hero-name::after {
+      content: attr(data-text);
+      position: absolute; top: 0; left: 0;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: inherit; line-height: inherit; letter-spacing: inherit;
+      width: 100%;
+    }
+    .hero-name::before {
+      color: #ff0080;
+      clip-path: polygon(0 28%, 100% 28%, 100% 48%, 0 48%);
+      animation: glitch-a 7s infinite; left: -3px;
+    }
+    .hero-name::after {
+      color: #00e5ff;
+      clip-path: polygon(0 56%, 100% 56%, 100% 68%, 0 68%);
+      animation: glitch-b 7s infinite; left: 3px;
+    }
+    @keyframes glitch-a {
+      0%,88%,100% { transform: none; opacity: 0; }
+      89% { transform: translateX(-4px) skewX(-1deg); opacity: 0.85; }
+      91% { transform: translateX(4px); opacity: 0.85; }
+      93% { transform: translateX(-2px); opacity: 0.85; }
+      95% { transform: none; opacity: 0; }
+    }
+    @keyframes glitch-b {
+      0%,90%,100% { transform: none; opacity: 0; }
+      91% { transform: translateX(5px) skewX(1deg); opacity: 0.75; }
+      93% { transform: translateX(-3px); opacity: 0.75; }
+      95% { transform: none; opacity: 0; }
+    }
+
+    .hero-location {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--text-muted);
+      letter-spacing: 2.5px; text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+    .hero-location svg { color: var(--red); flex-shrink: 0; }
+
+    .hero-tagline {
+      font-size: clamp(16px, 2vw, 22px); font-weight: 300;
+      line-height: 1.5; color: rgba(255,255,255,0.7);
+      margin-bottom: 48px; max-width: 400px;
+    }
+    .hero-tagline em { font-style: italic; color: var(--red); font-weight: 600; }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Equalizer */
+    .equalizer {
+      position: absolute; bottom: 44px; left: 80px;
+      display: flex; gap: 5px; align-items: flex-end; opacity: 0.5;
+    }
+    .eq-bar {
+      width: 3px; background: var(--red); border-radius: 2px;
+      animation: eq-pulse var(--d, 0.6s) ease-in-out infinite alternate;
+    }
+    @keyframes eq-pulse {
+      from { height: var(--min, 4px); opacity: 0.4; }
+      to   { height: var(--max, 24px); opacity: 1; }
+    }
+
+    /* ── SECTION COMMON ── */
+    .section-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 5vw, 64px);
+      letter-spacing: 4px; line-height: 1;
+    }
+    .section-header { text-align: center; margin-bottom: 64px; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); padding: 120px 0; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap::before {
+      content: ''; position: absolute;
+      top: -14px; left: -14px;
+      right: 28px; bottom: 28px;
+      border: 1px solid var(--red-border); z-index: 0;
+      animation: border-pulse 4s ease-in-out infinite;
+    }
+    .about-img-wrap::after {
+      content: ''; position: absolute;
+      bottom: -14px; right: -14px;
+      left: 28px; top: 28px;
+      border: 1px solid rgba(255,255,255,0.05); z-index: 0;
+    }
+    @keyframes border-pulse {
+      0%,100% { border-color: rgba(255,0,51,0.35); }
+      50%      { border-color: rgba(255,0,51,0.7); box-shadow: 0 0 20px rgba(255,0,51,0.15); }
+    }
+    .about-img-wrap img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      object-position: center 30%;
+      position: relative; z-index: 1;
+      filter: brightness(0.85) contrast(1.1);
+    }
+    .about-text-col { position: relative; }
+    .about-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 4vw, 54px);
+      letter-spacing: 3px; line-height: 1;
+      margin-bottom: 30px;
+    }
+    .about-body {
+      font-size: 15px; line-height: 1.95;
+      color: rgba(255,255,255,0.6); margin-bottom: 40px;
+    }
+    .about-body br { margin-bottom: 12px; display: block; content: ''; }
+
+    /* ── SOUND & VIBES ── */
+    #music { background: var(--bg); padding: 110px 0; }
+    .vibes-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .vibe-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 36px 20px; text-align: center;
+      transition: all 0.4s; position: relative; overflow: hidden;
+    }
+    .vibe-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: linear-gradient(to right, transparent, var(--red), transparent);
+      transform: scaleX(0); transition: transform 0.4s;
+    }
+    .vibe-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 100%, rgba(255,0,51,0.06) 0%, transparent 70%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .vibe-card:hover { border-color: var(--red-border); transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+    .vibe-card:hover::before { transform: scaleX(1); }
+    .vibe-card:hover::after { opacity: 1; }
+    .vibe-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(255,0,51,0.08); border: 1px solid var(--red-border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px; font-size: 24px;
+      transition: all 0.4s; position: relative; z-index: 1;
+    }
+    .vibe-card:hover .vibe-icon {
+      background: var(--red);
+      box-shadow: 0 0 30px var(--red-glow), 0 0 60px rgba(255,0,51,0.15);
+    }
+    .vibe-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 2px; margin-bottom: 10px;
+      position: relative; z-index: 1;
+    }
+    .vibe-desc {
+      font-size: 11px; color: var(--text-muted);
+      line-height: 1.7; position: relative; z-index: 1;
+    }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--bg2); padding: 110px 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      grid-template-rows: 300px 300px;
+      gap: 8px;
+    }
+    .gallery-item {
+      overflow: hidden; position: relative; cursor: pointer;
+      background: var(--bg3);
+    }
+    .gallery-item:first-child { grid-row: 1 / 3; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s ease, filter 0.4s;
+      filter: brightness(0.75) saturate(0.85);
+    }
+    .gallery-item:hover img { transform: scale(1.07); filter: brightness(0.6) saturate(1.1); }
+    .gallery-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to top, rgba(255,0,51,0.5) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.4s;
+      display: flex; align-items: flex-end; padding: 24px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px; letter-spacing: 3px; color: white;
+      transform: translateY(8px); transition: transform 0.4s;
+    }
+    .gallery-item:hover .gallery-label { transform: none; }
+    .gallery-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 14px;
+      border: 1px solid var(--border);
+      color: var(--text-dim); font-size: 10px;
+      letter-spacing: 3px; text-transform: uppercase;
+      transition: border-color 0.3s;
+    }
+    .gallery-placeholder:hover { border-color: var(--red-border); }
+    .gallery-placeholder .ph-icon { font-size: 32px; opacity: 0.3; }
+
+    /* ── MIXES / MUSIC PLAYER ── */
+    #mixes {
+      background: var(--bg2); padding: 110px 0;
+      border-top: 1px solid var(--border);
+    }
+    .mixes-wrap { max-width: 800px; margin: 0 auto; }
+
+    /* Placeholder player */
+    .player-placeholder {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 4px; padding: 36px 40px;
+      display: flex; align-items: center; gap: 28px;
+      margin-bottom: 24px; position: relative; overflow: hidden;
+    }
+    .player-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(255,0,51,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .player-play {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--red); border: none; cursor: not-allowed;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px var(--red-glow);
+    }
+    .player-play svg { margin-left: 3px; }
+    .player-info { flex: 1; min-width: 0; }
+    .player-track {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 2px; margin-bottom: 6px; color: white;
+    }
+    .player-artist { font-size: 12px; color: var(--text-muted); letter-spacing: 1.5px; margin-bottom: 16px; }
+    /* Waveform animation */
+    .waveform { display: flex; gap: 3px; align-items: center; height: 40px; }
+    .wave-bar {
+      flex: 1; background: var(--red); border-radius: 2px; opacity: 0.35;
+      animation: wave-idle var(--d, 1s) ease-in-out infinite alternate;
+    }
+    @keyframes wave-idle {
+      from { height: var(--lo, 4px); opacity: 0.25; }
+      to   { height: var(--hi, 20px); opacity: 0.5; }
+    }
+    .player-coming {
+      font-size: 11px; color: var(--text-muted); letter-spacing: 2px;
+      text-transform: uppercase; white-space: nowrap;
+    }
+
+    /* Platform badges */
+    .platform-row {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .platform-badge {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border: 1px solid var(--border);
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--text-muted);
+      transition: all 0.3s;
+    }
+    .platform-badge:hover { border-color: var(--red-border); color: white; }
+    .badge-soundcloud:hover { border-color: rgba(255,85,0,0.5); }
+    .badge-spotify:hover    { border-color: rgba(30,215,96,0.5); }
+    .badge-mixcloud:hover   { border-color: rgba(82,165,240,0.5); }
+
+    /* ── AVAILABLE FOR ── */
+    #events {
+      background: var(--bg); padding: 110px 0;
+      border-top: 1px solid var(--border);
+    }
+    .events-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2px; margin-top: 64px;
+    }
+    .event-item {
+      background: var(--bg2); padding: 48px 28px; text-align: center;
+      border: 1px solid var(--border); transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .event-item::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--red);
+      transform: scaleX(0); transition: transform 0.4s;
+    }
+    .event-item:hover { background: var(--bg3); border-color: var(--red-border); transform: translateY(-4px); }
+    .event-item:hover::after { transform: scaleX(1); }
+    .event-icon { font-size: 38px; margin-bottom: 18px; }
+    .event-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 19px; letter-spacing: 2px; color: white;
+      margin-bottom: 8px;
+    }
+    .event-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── LET'S CONNECT ── */
+    #contact { background: var(--bg2); padding: 130px 0; overflow: hidden; position: relative; }
+    #contact::before {
+      content: 'ARIA'; position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30vw; color: rgba(255,0,51,0.03);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      letter-spacing: 8px; pointer-events: none; white-space: nowrap;
+    }
+    .connect-inner { text-align: center; max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+    .connect-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 8vw, 100px);
+      letter-spacing: 6px; line-height: 0.88;
+      margin-bottom: 24px;
+    }
+    .connect-title .accent { color: var(--red); }
+    .connect-sub {
+      font-size: 15px; color: rgba(255,255,255,0.5);
+      line-height: 1.8; margin-bottom: 54px;
+    }
+    .connect-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+    .connect-meta {
+      display: flex; justify-content: center; gap: 48px;
+      flex-wrap: wrap; padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .meta-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--text-muted);
+    }
+    .meta-item svg { color: var(--red); flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #000; padding: 36px 0 28px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px; letter-spacing: 5px;
+    }
+    .footer-logo span { color: var(--red); }
+    .footer-nav { display: flex; gap: 28px; list-style: none; }
+    .footer-nav a {
+      font-size: 10px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-dim);
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--red); }
+    .footer-copy { font-size: 11px; color: var(--text-dim); }
+
+    /* ── WA FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 56px; height: 56px; background: #25D366;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45); z-index: 999;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .wa-float:hover { transform: scale(1.12); box-shadow: 0 6px 30px rgba(37,211,102,0.6); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left {
+      opacity: 0; transform: translateX(-48px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: none; }
+    .reveal-right {
+      opacity: 0; transform: translateX(48px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .vibes-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 960px) {
+      .nav-links, .nav-book { display: none; }
+      .hamburger { display: flex; }
+      #inicio { min-height: 100vh; }
+      .hero-overlay {
+        background:
+          linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, transparent 20%),
+          linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 40%),
+          rgba(8,8,8,0.5);
+      }
+      .hero-left { padding: 100px 32px 80px; max-width: 100%; }
+      .equalizer { left: 32px; bottom: 32px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-img-wrap::before, .about-img-wrap::after { display: none; }
+      .about-img-wrap img { aspect-ratio: 4/3; }
+      .vibes-grid { grid-template-columns: repeat(2, 1fr); }
+      .events-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 240px 240px;
+      }
+      .gallery-item:first-child { grid-row: 1 / 2; }
+      .nav-inner { padding: 18px 24px; }
+      .footer-inner { flex-direction: column; align-items: center; text-align: center; }
+      .footer-nav { justify-content: center; }
+    }
+    @media (max-width: 540px) {
+      .hero-left { padding: 80px 20px 60px; }
+      .hero-name { font-size: 72px; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas a { justify-content: center; }
+      .equalizer { left: 20px; }
+      .container { padding: 0 20px; }
+      .vibes-grid { grid-template-columns: 1fr; }
+      .events-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .gallery-item, .gallery-item:first-child {
+        grid-row: auto; grid-column: auto; height: 260px;
+      }
+      .connect-btns { flex-direction: column; align-items: center; }
+      .connect-meta { gap: 24px; }
+      #contact::before { display: none; }
+      .about-title { font-size: 36px; }
+      .section-title { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">DJ ARIA</div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#music">Music</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#mixes">Mixes</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://wa.me/34623067102" class="nav-book" target="_blank" rel="noopener">Book Now</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio">Home</a>
+    <a href="#about">About</a>
+    <a href="#music">Music</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#mixes">Mixes</a>
+    <a href="#events">Events</a>
+    <a href="#contact">Contact</a>
+    <a href="https://wa.me/34623067102" target="_blank" rel="noopener">📱 Book Now</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="inicio">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="aria-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-redline"></div>
+  <div class="hero-left">
+    <div class="hero-genres">
+      <span>Afrobeat</span>
+      <span class="sep">•</span>
+      <span>Dancehall</span>
+      <span class="sep">•</span>
+      <span>Reggaeton</span>
+    </div>
+
+    <h1 class="hero-name" data-text="DJ ARIA">DJ ARIA</h1>
+
+    <div class="hero-location">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      Barcelona, Spain
+    </div>
+
+    <p class="hero-tagline">
+      Bringing <em>energy</em>, rhythm and<br>unforgettable <em>vibes</em> to every crowd.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="https://wa.me/34623067102" class="btn-red" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Book Now
+      </a>
+      <a href="https://www.instagram.com/ariiichavez08/" class="btn-ghost" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        Instagram
+      </a>
+    </div>
+
+    <div class="equalizer">
+      <div class="eq-bar" style="--min:3px;--max:16px;--d:0.55s"></div>
+      <div class="eq-bar" style="--min:7px;--max:30px;--d:0.42s"></div>
+      <div class="eq-bar" style="--min:4px;--max:22px;--d:0.68s"></div>
+      <div class="eq-bar" style="--min:10px;--max:38px;--d:0.5s"></div>
+      <div class="eq-bar" style="--min:5px;--max:26px;--d:0.6s"></div>
+      <div class="eq-bar" style="--min:8px;--max:20px;--d:0.47s"></div>
+      <div class="eq-bar" style="--min:3px;--max:34px;--d:0.58s"></div>
+      <div class="eq-bar" style="--min:6px;--max:18px;--d:0.63s"></div>
+      <div class="eq-bar" style="--min:2px;--max:28px;--d:0.44s"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal-left">
+        <img src="aria-hero.jpg" alt="DJ ARIA — Barcelona" style="object-position: center 20%;">
+      </div>
+      <div class="reveal-right">
+        <p class="section-eyebrow">About</p>
+        <h2 class="about-title">About DJ ARIA</h2>
+        <p class="about-body">
+          DJ ARIA is a Barcelona-based DJ specializing in Afrobeat, Dancehall,
+          Reggaeton and Urban Sounds.<br><br>
+          Her sets blend rhythm, culture and energy to create unforgettable
+          experiences for clubs, festivals, beach clubs and private events.
+        </p>
+        <a href="https://www.instagram.com/ariiichavez08/" class="btn-red" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          Follow on Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOUND & VIBES ── -->
+<section id="music">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Music</p>
+      <h2 class="section-title">Sound & Vibes</h2>
+    </div>
+    <div class="vibes-grid">
+      <div class="vibe-card reveal" style="transition-delay:.08s">
+        <div class="vibe-icon">🌍</div>
+        <div class="vibe-name">Afrobeat</div>
+        <p class="vibe-desc">Contemporary African rhythms and global vibes</p>
+      </div>
+      <div class="vibe-card reveal" style="transition-delay:.16s">
+        <div class="vibe-icon">🌴</div>
+        <div class="vibe-name">Dancehall</div>
+        <p class="vibe-desc">Authentic Caribbean energy and Jamaican culture</p>
+      </div>
+      <div class="vibe-card reveal" style="transition-delay:.24s">
+        <div class="vibe-icon">👑</div>
+        <div class="vibe-name">Reggaeton</div>
+        <p class="vibe-desc">From classics to modern club hits</p>
+      </div>
+      <div class="vibe-card reveal" style="transition-delay:.32s">
+        <div class="vibe-icon">🎵</div>
+        <div class="vibe-name">Amapiano</div>
+        <p class="vibe-desc">Deep grooves and modern African sounds</p>
+      </div>
+      <div class="vibe-card reveal" style="transition-delay:.40s">
+        <div class="vibe-icon">⚡</div>
+        <div class="vibe-name">Urban Hits</div>
+        <p class="vibe-desc">Music that connects with every audience</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Gallery</p>
+      <h2 class="section-title">The Vibe</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal-left">
+        <img src="aria-hero.jpg" alt="DJ ARIA">
+        <div class="gallery-overlay"><span class="gallery-label">Barcelona</span></div>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="aria-dj.jpg" alt="DJ ARIA on the decks">
+        <div class="gallery-overlay"><span class="gallery-label">On the Decks</span></div>
+      </div>
+      <div class="gallery-placeholder gallery-item reveal" style="transition-delay:.1s">
+        <span class="ph-icon">📸</span>
+        <span>Coming Soon</span>
+      </div>
+      <div class="gallery-placeholder gallery-item reveal" style="transition-delay:.2s">
+        <span class="ph-icon">🎧</span>
+        <span>More Photos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MIXES ── -->
+<section id="mixes">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Music</p>
+      <h2 class="section-title">Listen to the Mix</h2>
+    </div>
+    <div class="mixes-wrap">
+
+      <div class="reveal" style="margin-bottom:24px;">
+        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ariadna-chavez-gonzalez/01-05-2026&color=%23FF0033&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
+          style="border-radius:4px;">
+        </iframe>
+      </div>
+
+      <div class="platform-row reveal" style="transition-delay:.15s">
+        <a href="https://soundcloud.com/ariadna-chavez-gonzalez/01-05-2026" target="_blank" rel="noopener" class="platform-badge badge-soundcloud">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity=".7">
+            <path d="M1.175 12.225c-.016.132 0 .264.044.44l1.34 5.544-1.34 5.104a.735.735 0 0 1-.044.26C1.03 23.79 1.21 24 1.44 24c.23 0 .44-.21.44-.44l1.56-5.79-1.56-5.98c0-.23-.21-.44-.44-.44-.23 0-.265.21-.265.875zm2.43-.7c-.022.153 0 .308.043.528l1.165 6.147-1.165 5.632a.66.66 0 0 1-.043.263c-.11.594.11.88.374.88.264 0 .484-.286.484-.88l1.34-5.895-1.34-6.41c0-.594-.22-.88-.484-.88-.264 0-.374.286-.374.615zm2.475-.11c-.044.175-.044.35 0 .57l1.01 6.347-1.01 5.94c-.044.22 0 .396.044.54.088.374.308.572.55.572.242 0 .462-.198.55-.572.044-.144.044-.32 0-.54l1.144-5.94-1.144-6.347c-.088-.374-.308-.572-.55-.572-.242 0-.462.198-.55.572zm12.748 1.034c-.44-2.178-2.354-3.894-4.576-3.894-.924 0-1.782.308-2.486.792V20.5c0 .44.33.88.77.88H20.3c1.738 0 3.17-1.452 3.17-3.19-.022-1.738-1.452-3.19-3.19-3.19a3.2 3.2 0 0 0-.452.044z"/>
+          </svg>
+          SoundCloud
+        </a>
+        <div class="platform-badge badge-spotify">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity=".7">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+          Spotify
+        </div>
+        <div class="platform-badge badge-mixcloud">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity=".7">
+            <path d="M11.56 8.87V17h4.15v-1.26h-2.73V8.87zm-1.9 0H7.34v1.26h.87V17h1.45zm7.27 0V17h1.45v-3.58h1.13V12.2h-1.13V8.87zm-13.06 0v5.4c0 .93.75 1.68 1.68 1.68s1.68-.75 1.68-1.68v-5.4H5.78v5.28c0 .24-.19.42-.43.42s-.43-.18-.43-.42V8.87zM22.24 12c0-5.52-4.48-10-10-10S2.24 6.48 2.24 12s4.48 10 10 10 10-4.48 10-10z"/>
+          </svg>
+          Mixcloud
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── AVAILABLE FOR ── -->
+<section id="events">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Available For</p>
+      <h2 class="section-title">Events</h2>
+    </div>
+    <div class="events-grid">
+      <div class="event-item reveal" style="transition-delay:.08s">
+        <div class="event-icon">🏛️</div>
+        <div class="event-name">Clubs</div>
+        <p class="event-desc">Nightclubs &amp; discotheques</p>
+      </div>
+      <div class="event-item reveal" style="transition-delay:.16s">
+        <div class="event-icon">🎪</div>
+        <div class="event-name">Festivals</div>
+        <p class="event-desc">Music &amp; outdoor festivals</p>
+      </div>
+      <div class="event-item reveal" style="transition-delay:.24s">
+        <div class="event-icon">🏖️</div>
+        <div class="event-name">Beach Clubs</div>
+        <p class="event-desc">Poolside &amp; beachfront sessions</p>
+      </div>
+      <div class="event-item reveal" style="transition-delay:.32s">
+        <div class="event-icon">🎉</div>
+        <div class="event-name">Private Events</div>
+        <p class="event-desc">Weddings, birthdays &amp; corporate</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LET'S CONNECT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="connect-inner reveal">
+      <h2 class="connect-title">LET'S<br><span class="accent">CONNECT</span></h2>
+      <p class="connect-sub">
+        Ready to bring the vibes to your event?<br>
+        Get in touch and let's make it happen.
+      </p>
+      <div class="connect-btns">
+        <a href="https://wa.me/34623067102" class="btn-red" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp
+        </a>
+        <a href="https://www.instagram.com/ariiichavez08/" class="btn-ghost" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          Instagram
+        </a>
+      </div>
+      <div class="connect-meta">
+        <div class="meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          +34 623 067 102
+        </div>
+        <div class="meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          @ariiichavez08
+        </div>
+        <div class="meta-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Barcelona, Spain
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">DJ <span>ARIA</span></div>
+      <ul class="footer-nav">
+        <li><a href="#inicio">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 DJ ARIA · All Rights Reserved · Web by <span style="color:var(--red);font-weight:600;">GGProductions</span></p>
+    </div>
+  </div>
+</footer>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/34623067102" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+  'use strict';
+
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }));
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+  // Hero image parallax
+  const heroImg = document.querySelector('.hero-right img');
+  window.addEventListener('scroll', () => {
+    if (heroImg && window.scrollY < window.innerHeight) {
+      heroImg.style.transform = `translateY(${window.scrollY * 0.12}px)`;
+    }
+  }, { passive: true });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--red)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
