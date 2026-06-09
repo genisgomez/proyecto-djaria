@@ -321,7 +321,7 @@
     #about { background: var(--bg2); padding: 120px 0; }
     .about-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+      gap: 80px; align-items: start;
     }
     .about-img-wrap { position: relative; }
     .about-img-wrap::before {
@@ -342,7 +342,8 @@
       50%      { border-color: rgba(255,0,51,0.7); box-shadow: 0 0 20px rgba(255,0,51,0.15); }
     }
     .about-img-wrap img {
-      width: 100%; height: auto;
+      width: 100%; height: auto; max-height: 600px;
+      object-fit: contain; object-position: top center;
       position: relative; z-index: 1;
       filter: brightness(0.85) contrast(1.1);
     }
